@@ -1,0 +1,51 @@
+import mysql.connector
+
+
+con = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="12345678",
+    database="Employees"
+)
+
+if con.is_connected():
+    cur = con.cursor()
+
+    print("Welcome to record deleting wizard")
+    print("*" * 35)
+
+    Eid = int(input("Enter employee ID for deletion: "))
+
+    Q1 = "SELECT * FROM EMP WHERE EMPID={}".format(Eid)
+
+    cur.execute(Q1)
+    data = cur.fetchall()
+
+    if data:
+        print("Record found. Details are:")
+        print(data)
+
+        ans = input(
+            "Do you want to delete the following record (y/n): "
+        )
+
+        if ans == "y" or ans == "Y":
+            Q2 = "DELETE FROM EMP WHERE EMPID={}".format(Eid)
+
+            cur.execute(Q2)
+            con.commit()
+
+            print("Employee details deleted")
+
+            Q3 = "SELECT * FROM EMP"
+
+            cur.execute(Q3)
+            data = cur.fetchall()
+
+            for i in data:
+                print(i)
+
+    else:
+        print("Record not found")
+
+con.close()
