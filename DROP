@@ -1,0 +1,23 @@
+import mysql.connector
+
+con = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="12345678",
+    database="Employees"
+)
+
+if con.is_connected():
+    cur = con.cursor()
+
+    try:
+        query = "DROP TABLE EMP"
+
+        cur.execute(query)
+
+        print("EMP table dropped successfully")
+
+    except:
+        print("Table does not exist or cannot be dropped")
+
+con.close()
