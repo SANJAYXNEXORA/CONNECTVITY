@@ -1,0 +1,42 @@
+import mysql.connector
+
+con = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="12345678",
+    database="Employees"
+)
+
+if con.is_connected():
+    cur = con.cursor()
+    opt = "y"
+
+    while opt.lower() == "y":
+        try:
+            No = int(input("Enter Employee Number: "))
+            Name = input("Enter Employee Name: ")
+            Gender = input("Enter Employee Gender (M/F/Other): ")
+            Salary = int(input("Enter Employee Salary: "))
+
+            Query = "INSERT INTO EMP (No, Name, Gender, Salary) VALUES (%s, %s, %s, %s)"
+            cur.execute(Query, (No, Name, Gender, Salary))
+            con.commit()
+
+            print("Record Stored Successfully")
+
+        except ValueError:
+            print("Invalid input. Please enter correct values.")
+        except mysql.connector.Error as err:
+            print(f"Database Error: {err}")
+
+        opt = input("Do you want to add another employee details (y/n): ")
+
+    cur.execute("SELECT * FROM EMP")
+    data = cur.fetchall()
+
+    for i in data:
+        print(i)
+
+    cur.close()
+con.close()
+
