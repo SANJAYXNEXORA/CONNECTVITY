@@ -1,0 +1,28 @@
+7.Write a Python program to append new student records (Name and Roll Number) to an existing text file named students.txt. The program should ask the user how many records they want to add, append them without overwriting previous data, and then display the updated file contents.
+def append_student_records():
+    # Append mode ('a') opens file for writing at the end without truncating it
+    with open("students.txt", "a") as file:
+        n = int(input("How many student records do you want to append? "))
+        for i in range(n):
+            print(f"\n--- Student {i+1} ---")
+            roll_no = input("Enter Roll Number: ")
+            name = input("Enter Name: ")
+            file.write(f"Roll No: {roll_no} | Name: {name}\n")
+            
+    print("\nRecords appended successfully!")
+
+def display_records():
+    print("\n--- Updated Contents of students.txt ---")
+    try:
+        with open("students.txt", "r") as file:
+            content = file.read()
+            if content:
+                print(content, end="")
+            else:
+                print("File is empty.")
+    except FileNotFoundError:
+        print("Error: 'students.txt' does not exist yet.")
+
+# Main Execution
+append_student_records()
+display_records()
