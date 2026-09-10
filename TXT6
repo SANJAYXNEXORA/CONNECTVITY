@@ -1,0 +1,22 @@
+6.Write a program to read content from source.txt and copy all lines that do not contain the word "REMOVE" into a new file destination.txt.
+def filter_and_copy():
+    try:
+        with open("source.txt", "r") as src, open(
+            "destination.txt", "w"
+        ) as dest:
+            copied_count = 0
+            for line in src:
+                if "REMOVE" not in line:
+                    dest.write(line)
+                    copied_count += 1
+
+        print(
+            f"Copy completed successfully! {copied_count} lines written to destination.txt."
+        )
+
+    except FileNotFoundError:
+        print("Error: 'source.txt' was not found.")
+
+
+# Main Execution
+filter_and_copy()
