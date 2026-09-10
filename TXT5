@@ -1,0 +1,20 @@
+5.Python  progam to read lines from a text file article.txt and display only those words whose length is less than 4 characters.
+
+def display_short_words():
+    try:
+        with open("article.txt", "r") as file:
+            content = file.read()
+            words = content.split()
+
+            print("Words with length less than 4:")
+            for word in words:
+                # Cleaning common punctuation attached to words
+                clean_word = word.strip(".,!?;:")
+                if len(clean_word) < 4:
+                    print(clean_word, end=" | ")
+            print()
+
+    except FileNotFoundError:
+        print("Error: The file 'article.txt' does not exist.")
+
+display_short_words()
