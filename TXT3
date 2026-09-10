@@ -1,0 +1,41 @@
+3.Python code for reading a text file and displaying the total count of vowels, consonants, lowercase letters, and uppercase letters.
+def character_counts():
+    vowels_set = "aeiouAEIOU"
+
+    # Counters
+    vowel_count = 0
+    consonant_count = 0
+    upper_count = 0
+    lower_count = 0
+
+    try:
+        with open("sample.txt", "r") as file:
+            content = file.read()
+
+            for char in content:
+                # Count uppercase and lowercase letters
+                if char.isupper():
+                    upper_count += 1
+                elif char.islower():
+                    lower_count += 1
+
+                # Count vowels and consonants (only for alphabetic characters)
+                if char.isalpha():
+                    if char in vowels_set:
+                        vowel_count += 1
+                    else:
+                        consonant_count += 1
+
+        # Display results
+        print("--- File Analysis Results ---")
+        print(f"Uppercase Letters : {upper_count}")
+        print(f"Lowercase Letters : {lower_count}")
+        print(f"Vowels            : {vowel_count}")
+        print(f"Consonants        : {consonant_count}")
+
+    except FileNotFoundError:
+        print("Error: The file 'sample.txt' was not found.")
+
+
+# Main Execution
+character_counts()
